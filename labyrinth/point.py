@@ -15,7 +15,7 @@ class Point (object):
         return ((self.x - point.x) ** 2 + (self.y - point.y) ** 2 )  ** 0.5
 
     def neighbours(self):
-        yield Point(self.y-1, self.x)
-        yield Point(self.y+1, self.x)
-        yield Point(self.y, self.x-1)
-        yield Point(self.y, self.x+1)
+        yield Point(self.y-1, self.x)   # NORD
+        yield Point(self.y, self.x+1)   # EST
+        yield Point(self.y+1, self.x)   # SUD
+        yield Point(self.y, self.x-1)   # OVEST
