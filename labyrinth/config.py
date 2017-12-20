@@ -1,4 +1,5 @@
 from sys import argv as args
+import logging
 
 class Configure(object):
     DEFAULT_PROBABILITY = 0.15
@@ -14,6 +15,7 @@ class Configure(object):
             'cols': self.maxcols,
             'delay': Configure.DEFAULT_DELAY,
             'prob': Configure.DEFAULT_PROBABILITY,
+            'log': "INFO"
         }
         self.__parse_args__()
         self.__validate__()
@@ -35,7 +37,8 @@ class Configure(object):
 --rows rows         -- Labyrinth's number of rows
 --cols columns      -- Labyrinth's number of columns
 --delay delay       -- Delay after a move (in seconds). Default: {}
---prob probability  -- Probability of walls. Default: {}""".format(
+--prob probability  -- Probability of walls. Default: {}
+--log loglevel      -- Sets the verbosity of logging. Default: INFO""".format(
                             args[0],
                             Configure.DEFAULT_DELAY,
                             Configure.DEFAULT_PROBABILITY))
@@ -60,3 +63,7 @@ class Configure(object):
         if not 0 <= self.conf['prob'] <= 1:
             print("Probabilities must belong in interval [0,1], using default")
             self.conf['prob'] = Configure.DEFAULT_PROBABILITY
+
+        loglevel = self.conf['log']
+        numeric_level = getattr(logging, loglevel.upper(), logging.INFO)
+        logging.basicConfig(level=numeric_level)

@@ -5,6 +5,7 @@ from time import sleep
 import curses
 from sys import argv
 from copy import deepcopy
+import logging
 
 def main(screen, conf, win1, win2):
     l1 = Labyrinth(conf['rows'], conf['cols'], conf['prob'])
@@ -37,13 +38,14 @@ def run(win, solver, message):
     #input("Press ENTER key to continue...")
     return True
 
-
-
 screen = curses.initscr()
 LINES, COLS = curses.LINES, curses.COLS
 curses.endwin()
 
 configurator = Configure(LINES, COLS)
+
+logging.debug("LINES=%d COLS=%d" % (LINES,COLS))
+logging.debug("CONF: %s" % configurator.conf)
 
 curses.initscr()
 curses.curs_set(0)
